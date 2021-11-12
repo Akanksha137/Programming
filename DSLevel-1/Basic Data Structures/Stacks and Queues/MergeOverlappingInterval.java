@@ -20,6 +20,55 @@ public class MergeOverlappingInterval {
 
     public static void mergeOverlappingIntervals(int[][] arr) {
         // merge overlapping intervals and print in increasing order of start time
+        Pair[] pair = new Pair[arr.length];
+        for(int i=0;i<arr.length;i++){
+            pair[i] = new Pair(arr[i][0],arr[i][1]);
+        }
+        Arrays.sort(pair);
+         System.out.println("top.et");
+        Stack< Pair>st = new Stack<>();
+        for(int i=0;i<pair.length;i++){
+            if(i==0){
+                st.push(pair[i]);
+            }
+            else{
+                Pair top = st.peek();
+                if(pair[i].st>top.st){
+                    st.push(pair[i]);
+                }
+                else{
+                    top.et = Math.max(top.et , pair[i].et);
+                    System.out.println(top.et);
+                   // st.pop();
+                   // st.push(top);
+                }
+            }
+        }
+        Stack<Pair>rs = new Stack<>();
+        while(st.size()>0){
+            rs.push(st.pop());
+        }
+        while(rs.size()>0){
+            Pair p = rs.pop();
+            System.out.println(p.st + " "+ p.et);
+        }
     }
+
+public static class Pair  implements Comparable<Pair>{
+    int st;
+    int et;
+    Pair(int st , int et){
+        this.st = st;
+        this.et = et;
+    }
+    public int compareTo(Pair other){
+        if(this.st!=other.st){
+            return this.st-other.st;
+        }
+        else{
+            return this.et - other.et;
+        }
+    }
+}
 
 }
