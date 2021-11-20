@@ -19,51 +19,46 @@ public class QueueToStackAdapterPushEfficient {
 
     void push(int val) {
       mainQ.add(val);
-      System.out.println(mainQ);
-      helperQ=mainQ;
-      System.out.println(helperQ);
     }
 
     int pop() {
       if(size()==0){
         System.out.println("Stack underflow");
         return -1;
-      }
+      } 
       else{
-         while(mainQ.size()>1){
-         helperQ.add(mainQ.remove());
+        while(mainQ.size()>1){
+          helperQ.add(mainQ.remove());
+        }
 
-       }
-       int key = mainQ.remove();
-       
-       while(helperQ.size()>0){
-         mainQ.add(helperQ.remove());
-       }
-      // mainQ.add(key);
-       return key;
+        int val = mainQ.remove();
+
+        while (helperQ.size() > 0) {
+          mainQ.add(helperQ.remove());
+        }
+
+        return val;
       }
-     
     }
 
     int top() {
-       if(size()==0){
+      if (size() == 0) {
         System.out.println("Stack underflow");
         return -1;
+      } else {
+        while (mainQ.size() > 1) {
+          helperQ.add(mainQ.remove());
+        }
+
+        int val = mainQ.remove();
+        helperQ.add(val);
+
+        while (helperQ.size() > 0) {
+          mainQ.add(helperQ.remove());
+        }
+
+        return val;
       }
-     else {
-       while(mainQ.size()>1){
-         helperQ.add(mainQ.remove());
-
-       }
-       int key = mainQ.remove();
-       helperQ.add(key);
-       while(helperQ.size()>0){
-         mainQ.add(helperQ.remove());
-       }
-      // mainQ.add(key);
-       return key;
-
-     } 
     }
   }
 
