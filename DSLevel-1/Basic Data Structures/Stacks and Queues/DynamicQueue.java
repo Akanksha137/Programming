@@ -46,7 +46,7 @@ public class DynamicQueue {
         int idx = (front + size) % data.length;
         data[idx] = val;
         size++;
-        front=0;
+        
       }
     }
 
