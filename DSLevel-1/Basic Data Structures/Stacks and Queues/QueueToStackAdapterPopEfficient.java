@@ -21,12 +21,12 @@ public class QueueToStackAdapterPopEfficient {
       while(mainQ.size()>0){
           helperQ.add(mainQ.remove());
       }
-      System.out.println(mainQ);
+      ////System.out.println(mainQ);
       mainQ.add(val);
       while(helperQ.size()>0){
           mainQ.add(helperQ.remove());
       }
-      System.out.println(mainQ);
+     // System.out.println(mainQ);
     }
 
     int pop() {
