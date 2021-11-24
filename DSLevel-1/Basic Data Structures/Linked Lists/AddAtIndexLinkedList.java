@@ -98,31 +98,31 @@ public class AddAtIndexLinkedList {
     }
 
     public void addAt(int idx, int val){
-      Node temp = new Node();
-      temp.data = val;
-      temp.next = null;
-      if(size == 0){
-          head=tail=temp;
-         
-      }
-      else if(size == idx-1){
-          tail.next = temp;
-          tail = temp;
-      }
-      else if(size <= idx || idx<0){
+        
+      if(idx<0 || size<idx){
           System.out.println("Invalid arguments");
-          return;
+          //return;
+          
+      }
+      else if(idx == 0){
+          addFirst(val);
+      }
+      else if(size == idx){
+          addLast(val);
+          
       }
       else{
-          Node t = head;
-        for(int i=0;i<idx;i++){
-            t=t.next;
-        }
-        temp.next=t.next;
-        t.next =temp;
+          Node node= new Node();
+          node.data = val;
+          //node.next=null;
+          Node temp = head;
+          for(int i=0;i<idx-1;i++){
+              temp = temp.next;
+          }
+          node.next=temp.next ;
+          temp.next =node;
+          size++;
       }
-       size++;
-      
     }
   }
 
