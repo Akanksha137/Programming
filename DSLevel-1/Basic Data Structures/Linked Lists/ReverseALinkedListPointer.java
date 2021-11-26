@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class ReverseALinkedListDI {
+public class ReverseALinkedListPointer{
   public static class Node {
     int data;
     Node next;
@@ -155,20 +155,44 @@ public class ReverseALinkedListDI {
       }
     }
 
-    public void reverseDI() {
+    private Node getNodeAt(int idx) {
       Node temp = head;
-        
-        for(int i=0;i<(size/2);i++){
-            Node node = head;
-            for(int j=0;j<size-i-1;j++){
-                node=node.next;
-               
-            }
-            int val = node.data;
-            node.data=temp.data;
-            temp.data = val;
-            temp=temp.next;
-        }
+      for (int i = 0; i < idx; i++) {
+        temp = temp.next;
+      }
+      return temp;
+    }
+
+    public void reverseDI() {
+      int li = 0;
+      int ri = size - 1;
+      while(li < ri){
+        Node left = getNodeAt(li);
+        Node right = getNodeAt(ri);
+
+        int temp = left.data;
+        left.data = right.data;
+        right.data = temp;
+
+        li++;
+        ri--;
+      }
+    }
+ 
+    public void reversePI(){
+     int s=size-1;
+     while(s>0){
+         Node node= head;
+         Node temp = head;
+         for(int i=0;i<s;i++){
+            temp=temp.next; 
+         }
+         for(int i=0;i<s-1;i++){
+             node=node.next;
+         }
+         temp.next = node;
+         s--;
+     }
     }
   }
 
@@ -217,6 +241,8 @@ public class ReverseALinkedListDI {
         list.removeAt(idx);
       } else if(str.startsWith("reverseDI")){
         list.reverseDI();
+      } else if(str.startsWith("reversePI")){
+        list.reversePI();
       }
       str = br.readLine();
     }
