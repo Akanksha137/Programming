@@ -180,20 +180,17 @@ public class ReverseALinkedListPointer{
     }
  
     public void reversePI(){
-     int s=size-1;
-     while(s>0){
-         Node node= head;
-         Node temp = head;
-         for(int i=0;i<s;i++){
-            temp=temp.next; 
-         }
-         for(int i=0;i<s-1;i++){
-             node=node.next;
-         }
-         temp.next = node;
-         s--;
-     }
+     int s=size-2;
+     Node  temp = new Node();
+     Node node = new Node();
+    while(s>0){
+         temp =getNodeAt(s+1);
+         node = getNodeAt(s);
+        temp.next = node;
+        s--;
     }
+    node.next = null;
+  }
   }
 
   public static void main(String[] args) throws Exception {
