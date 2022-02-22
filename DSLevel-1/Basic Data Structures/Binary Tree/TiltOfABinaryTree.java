@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class DiameterOfABinaryTree {
+public class TiltOfABinaryTree {
   public static class Node {
     int data;
     Node left;
@@ -91,42 +91,18 @@ public class DiameterOfABinaryTree {
     return th;
   }
 
-  public static int diameter1(Node node) {
-      if(node == null){
-          return 0;
-      }
-    int max = Integer.MIN_VALUE;
-    int max1 = diameter1(node.left);
-    int max2 = diameter1(node.right);
-    max = Math.max(max1,max2);
-    int hl= height(node.left);
-    int hr = height(node.right);
-    if(max<(hl+hr+2)){
-        max = hl+hr+2;
-    }
-    return max;
-  }
-
-  static class DiaPair{
-    int height;
-    int dia;
-  }
-
-  public static DiaPair diameter2(Node node){
+  static int tilt = 0;
+  public static int tilt(Node node){
     if(node == null){
-      DiaPair s = new DiaPair();
-      s.height = -1;
-      s.dia = 0;
-      return s;
+        return 0;
     }
-    DiaPair l = diameter2(node.left);
-    DiaPair r = diameter2(node.right);
-    DiaPair res= new DiaPair();
-    res.height = Math.max(l.height,r.height)+1;
-    int f = l.height + r.height + 2;
-    res.dia = Math.max(f, Math.max(l.dia, r.dia));
-    return res;
-
+    int sum =0 ;    
+    //return sum of left and right
+    int left = tilt(node.left);
+    int right = tilt(node.right);
+    sum = left + right +node.data;
+    tilt +=Math.abs(left - right);
+    return sum;
   }
 
   public static void main(String[] args) throws Exception {
@@ -144,11 +120,8 @@ public class DiameterOfABinaryTree {
 
     Node root = construct(arr);
 
-    //int diameter = 0;
-   // diameter = diameter1(root);
-   // System.out.println(diameter);
-   DiaPair res = diameter2(root);
-   System.out.println(res.dia);
+    tilt(root);
+    System.out.println(tilt);
   }
 
 }
