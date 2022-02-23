@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class IsABinaryTree {
+public class LargestBSTsubtree {
   public static class Node {
     int data;
     Node left;
@@ -78,46 +78,48 @@ public class IsABinaryTree {
     display(node.left);
     display(node.right);
   }
-
-  public static int height(Node node) {
-    if (node == null) {
-      return -1;
-    }
-
-    int lh = height(node.left);
-    int rh = height(node.right);
-
-    int th = Math.max(lh, rh) + 1;
-    return th;
-  }
-
-  static class BinaryTreePair{
-      int max;
+  static class BSTPair{
       int min;
-      boolean isBST;
+      int max;
+      boolean isBST;  
+      int sum;
+      int largest;
   }
 
- public static BinaryTreePair isABinaryTree(Node node){
-     if(node == null){
-         BinaryTreePair bt = new BinaryTreePair();
-         bt.isBST = true;
-         bt.max = Integer.MIN_VALUE;
-         bt.min = Integer.MAX_VALUE;
-         return bt;
-         
-     }
-    BinaryTreePair lp = isABinaryTree(node.left);
-    BinaryTreePair rp = isABinaryTree(node.right);
-    BinaryTreePair mp = new BinaryTreePair();
-    mp.min = Math.min(node.data, Math.min(lp.min,rp.min));
-    mp.max = Math.max(node.data , Math.max(lp.max, rp.max));    
-    mp.isBST = lp.isBST && rp.isBST && node.data>=lp.max && node.data<=rp.min;
-    return mp;
+  public static BSTPair isBinaryTree(Node node){
+      if(node == null){
+          BSTPair bt = new BSTPair();
+          bt.max = Integer.MIN_VALUE;
+          bt.min = Integer.MAX_VALUE;
+          bt.isBST = true;
+          bt.sum = 0;
+          bt.largest = 0;
+          return bt;
+      }
+      BSTPair lp = isBinaryTree(node.left);
+      BSTPair rp = isBinaryTree(node.right);
+      BSTPair mp = new BSTPair();
+      mp.isBST = lp.isBST && rp.isBST && node.data>=lp.max && node.data<=rp.min;
+      mp.max = Math.max(node.data , Math.max(lp.max, rp.max));
+      mp.min = Math.min(node.data, Math.min(lp.min,rp.min));
+      if(mp.isBST==true){
+        mp.largest = node.data;
+        mp.sum = lp.sum + rp.sum +1;
+      }
+      else{
+        if(rp.isBST==true){
+            mp.largest = node.right!=null?node.right.data:0;
+            mp.sum = rp.sum;
+        }
+        else if(lp.isBST==true){
+            mp.largest = node.left!=null?node.left.data:0;
+            mp.sum = lp.sum;
+        }
+      }
+      return mp;
+  }
 
-
- }
-  
-  public static void main(String[] args) throws Exception {
+   public static void main(String[] args) throws Exception {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     int n = Integer.parseInt(br.readLine());
     Integer[] arr = new Integer[n];
@@ -131,11 +133,8 @@ public class IsABinaryTree {
     }
 
     Node root = construct(arr);
-    
-    BinaryTreePair res = isABinaryTree(root);
-
-    System.out.println(res.isBST);
-    
+    BSTPair res = isBinaryTree(root);
+    System.out.println(res.largest +  "@"+ res.sum);
   }
 
 }
