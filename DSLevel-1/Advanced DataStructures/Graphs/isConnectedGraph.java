@@ -32,7 +32,50 @@ public class isConnectedGraph {
          graph[v1].add(new Edge(v1, v2, wt));
          graph[v2].add(new Edge(v2, v1, wt));
       }
-
-      // write your code here
+    
+      boolean []visited = new  boolean[vtces];
+      boolean res = isGraphConnected(graph,0,visited);
+      System.out.println(res);
    }
+   
+   public static boolean isGraphConnected(ArrayList<Edge>[]graph,int src , boolean []visited){
+       if(visited.length-1 == src){
+           return true;
+       }
+     
+       visited[src]=true;
+       for(Edge edge:graph[src]){
+           if(visited[edge.nbr] == false){
+               if(edge.nbr == src+1){
+                   boolean res = isGraphConnected(graph,edge.nbr,visited);        
+                   return res;
+               }
+           }
+       }
+       return false;
+   }
+   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
