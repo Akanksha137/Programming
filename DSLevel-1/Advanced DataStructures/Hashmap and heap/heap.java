@@ -49,11 +49,11 @@ public class heap {
     private void downheapify(int pi){
         int mini = pi;
         int li = 2 * pi + 1;
-        if(li<data.size() && data.get(li) < data.get(pi)){
+        if(li<data.size() && data.get(li) < data.get(mini)){
             mini = li;
         }
         int ri = 2 * pi + 2;
-        if(ri<data.size() && data.get(ri) < data.get(pi)){
+        if(ri<data.size() && data.get(ri) < data.get(mini)){
             mini = ri;
         }
         
