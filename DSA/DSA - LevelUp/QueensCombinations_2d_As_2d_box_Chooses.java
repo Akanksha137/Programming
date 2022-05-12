@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class QueensPermutations_2d_As_2d_box_Chooses {
+public class QueensCombinations_2d_As_2d_box_Chooses {
 
     public static void queensCombinations(int qpsf, int tq, int row, int col, String asf){
         int nr = 0;
